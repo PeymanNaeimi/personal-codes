@@ -1,0 +1,32 @@
+{
+  "inbounds": [{
+    "port": 1080, 
+    "listen": "127.0.0.1",
+    "protocol": "socks",
+    "settings": {
+      "udp": true
+    }
+  }],
+  "outbounds": [{
+    "protocol": "vmess",
+    "settings": {
+      "vnext": [{
+        "address": "VMESS IP SERVER", 
+        "port": VMESSPORT,
+        "users": [{ "id": "VMESSID" }]
+      }]
+    }
+  },{
+    "protocol": "freedom",
+    "tag": "direct",
+    "settings": {}
+  }],
+  "routing": {
+    "domainStrategy": "IPOnDemand",
+    "rules": [{
+      "type": "field",
+      "ip": ["geoip:private"],
+      "outboundTag": "direct"
+    }]
+  }
+}
