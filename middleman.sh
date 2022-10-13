@@ -1,6 +1,8 @@
 #!/bin/bash
 clear
 this=`curl -s http://api.ipify.org`
+apt-get update
+apt install jq -y
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
@@ -17,7 +19,7 @@ ps=$(jq -r '.ps' v.json)
 id=$(jq -r '.id' v.json)
 echo $ip
 echo $port
-apt-get update
+
 apt-get install nginx
 echo "stream {" >> /etc/nginx/nginx.conf
 echo "    upstream external {" >> /etc/nginx/nginx.conf
