@@ -47,18 +47,31 @@ def jj(port,id,inbo):
         topass = '{"listen":null,"port":%s,"protocol":"vmess","settings":{"clients":[{"id":"%s","alterId":0}],"disableInsecureEncryption":false},"streamSettings":{"network":"ws","security":"none","wsSettings":{"path":"/","headers":{}}},"tag":"inbound-%s","sniffing":{"enabled":true,"destOverride":["http","tls"]}},' % (port,id,inbo)
         #print(topass)
         return topass
+def jjlast(port,id,inbo):
+        topass = '{"listen":null,"port":%s,"protocol":"vmess","settings":{"clients":[{"id":"%s","alterId":0}],"disableInsecureEncryption":false},"streamSettings":{"network":"ws","security":"none","wsSettings":{"path":"/","headers":{}}},"tag":"inbound-%s","sniffing":{"enabled":true,"destOverride":["http","tls"]}}' % (port,id,inbo)
+        #print(topass)
+        return topass
 first = '{"log":null,"routing":{"rules":[{"inboundTag":["api"],"outboundTag":"api","type":"field"},{"ip":["geoip:private"],"outboundTag":"blocked","type":"field"},{"outboundTag":"blocked","protocol":["bittorrent"],"type":"field"}]},"dns":null,\n'
 second = '"inbounds":[\n'
 with open("config.json","w") as f:
     f.write(first + second)
 for i in range (5000):
-    with open("config.json","a+") as f:
-        p1 = portgen()
-        p2 = uidgenerator()
-        p3 = inbound()
-        f.write("    " + str(jj(p1,str(p2),p3)))
-        f.write("\n")
-        f.close()
+    if i < 4998:
+        with open("config.json","a+") as f:
+            p1 = portgen()
+            p2 = uidgenerator()
+            p3 = inbound()
+            f.write("    " + str(jj(p1,str(p2),p3)))
+            f.write("\n")
+            f.close()
+    else:
+        with open("config.json","a+") as f:
+            p1 = portgen()
+            p2 = uidgenerator()
+            p3 = inbound()
+            f.write("    " + str(jjlast(p1,str(p2),p3)))
+            f.write("\n")
+            f.close()        
     with open("links.txt","a+") as f:
         f.write("vmess://" + str(getlink1(ip,p1,str(p2))))
         f.write("\n")
