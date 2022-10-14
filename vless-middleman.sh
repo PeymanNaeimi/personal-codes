@@ -1,4 +1,8 @@
 #!/bin/bash
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
 clear
 this=`curl -s http://api.ipify.org`
 echo "Your internet IP is:"
@@ -27,6 +31,8 @@ uuid=$(echo $vless | cut -d / -f 3)
 uuid=$(echo $uuid | cut -d @ -f 1)
 name=$(echo $vless | cut -d '#' -f 2)
 apt-get install -y nginx
+rm -rf /etc/nginx/nginx.conf
+dpkg --force-confmiss -i /var/cache/apt/archives/nginx-common_*.debano /etc/nginx/nginx.conf
 echo "stream {" >> /etc/nginx/nginx.conf
 echo "    upstream external {" >> /etc/nginx/nginx.conf
 echo "        server ${ip}:${port};  }" >> /etc/nginx/nginx.conf
