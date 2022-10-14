@@ -56,7 +56,7 @@ second = '"inbounds":[\n'
 with open("config.json","w") as f:
     f.write(first + second)
 for i in range (5000):
-    if i < 4998:
+    if i < 4999:
         with open("config.json","a+") as f:
             p1 = portgen()
             p2 = uidgenerator()
