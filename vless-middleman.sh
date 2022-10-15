@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
+  then echo "Please run as root, this way: sudo bash <(curl -s https://raw.githubusercontent.com/therealaleph/personal-codes/main/vless-middleman.sh)"
   exit
 fi
 clear
