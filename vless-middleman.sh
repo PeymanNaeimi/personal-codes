@@ -31,6 +31,7 @@ uuid=$(echo $vless | cut -d / -f 3)
 uuid=$(echo $uuid | cut -d @ -f 1)
 name=$(echo $vless | cut -d '#' -f 2)
 apt-get install -y nginx
+cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 rm -rf /etc/nginx/nginx.conf
 dpkg --force-confmiss -i /var/cache/apt/archives/nginx-common_*.debano /etc/nginx/nginx.conf
 echo "stream {" >> /etc/nginx/nginx.conf
